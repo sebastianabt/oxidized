@@ -26,6 +26,9 @@ module Oxidized
       if proxy_host = vars(:ssh_proxy)
         proxy =  Net::SSH::Proxy::Command.new("ssh #{proxy_host} -W %h:%p")
       end
+      if ssh_proxy_cmd = vars(:ssh_proxy_cmd)
+        proxy = Net::SSH::Proxy::Command.new("#{ssh_proxy_cmd}")
+      end
       ssh_opts = {
         :port => port.to_i,
         :password => @node.auth[:password], :timeout => Oxidized.config.timeout,
